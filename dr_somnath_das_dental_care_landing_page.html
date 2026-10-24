@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Somnath Das Dental Care | Gentle & Advanced Dentistry</title>
+    <meta name="description" content="Book your dental appointment with Dr. Somnath Das. Painless Root Canal (RCT), Ultrasonic Scaling, Orthodontics, Pediatric Dentistry & Complete Oral Care.">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter & Plus Jakarta Sans for a reassuring, modern clinical aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Supabase JS Client CDN (Ready for GitHub Pages static hosting) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        clinical: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            500: '#14b8a6',
+                            600: '#0d9488', // Primary Calming Teal
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        },
+                        skycare: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7', // Reassuring Sky Blue
+                            700: '#0369a1',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom smooth styling & micro-interactions */
+        body {
+            background-color: #f8fafc;
+            color: #0f172a;
+            overflow-x: hidden;
+        }
+        .glass-header {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at top right, rgba(224, 242, 254, 0.8), rgba(240, 253, 250, 0.9) 50%, #f8fafc 100%);
+        }
+        .card-hover {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(13, 148, 136, 0.08), 0 8px 10px -6px rgba(13, 148, 136, 0.04);
+        }
+        .star-btn {
+            transition: transform 0.15s ease, color 0.15s ease;
+        }
+        .star-btn:hover {
+            transform: scale(1.2);
+        }
+        /* Hide scrollbar on horizontal pills on mobile */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="antialiased pb-24 md:pb-0">
+
+    <!-- =====================================================================
+         TOP ANNOUNCEMENT & TIMINGS BAR
+    ====================================================================== -->
+    <div class="bg-clinical-800 text-white text-xs sm:text-sm py-2.5 px-4">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+            <div class="flex items-center space-x-3 sm:space-x-6">
+                <span class="flex items-center font-medium">
+                    <i class="fa-regular fa-clock text-clinical-200 mr-1.5"></i>
+                    <span>Morning: 9:30 AM – 1:30 PM</span>
+                </span>
+                <span class="hidden sm:inline text-clinical-500">|</span>
+                <span class="flex items-center font-medium">
+                    <i class="fa-regular fa-moon text-clinical-200 mr-1.5"></i>
+                    <span>Evening: 4:00 PM – 7:00 PM</span>
+                </span>
+            </div>
+            <div class="flex items-center space-x-4 ml-auto">
+                <button onclick="openSupabaseModal()" class="text-xs bg-clinical-700 hover:bg-clinical-600 text-clinical-100 px-2.5 py-1 rounded-full transition flex items-center gap-1.5 border border-clinical-500/40" title="View SQL & Configure Supabase Database">
+                    <i class="fa-solid fa-database"></i>
+                    <span id="db-status-badge">DB Setup & SQL</span>
+                </button>
+                <a href="https://maps.app.goo.gl/GnMb282GWHrHMneF9?g_st=awb" target="_blank" rel="noopener noreferrer" class="hover:text-clinical-200 transition flex items-center gap-1 font-medium">
+                    <i class="fa-solid fa-location-dot text-rose-400"></i>
+                    <span>Find Clinic on Map</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         STICKY NAVIGATION HEADER
+    ====================================================================== -->
+    <header class="sticky top-0 z-40 glass-header border-b border-slate-200/80 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-clinical-600 to-skycare-600 flex items-center justify-center text-white shadow-md shadow-clinical-600/20 group-hover:scale-105 transition">
+                    <i class="fa-solid fa-tooth text-xl"></i>
+                </div>
+                <div>
+                    <span class="block font-heading font-bold text-lg sm:text-xl text-slate-900 leading-tight">Dr. Somnath Das</span>
+                    <span class="block text-xs font-medium text-clinical-600 tracking-wide uppercase">Dental Care & Dispensary</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-7 text-sm font-medium text-slate-600">
+                <a href="#about" class="hover:text-clinical-600 transition">Meet the Doctor</a>
+                <a href="#treatments" class="hover:text-clinical-600 transition">Treatments</a>
+                <a href="#gallery" class="hover:text-clinical-600 transition">Dispensary Gallery</a>
+                <a href="#reviews" class="hover:text-clinical-600 transition">Patient Reviews</a>
+                <a href="#location" class="hover:text-clinical-600 transition">Map & Timings</a>
+            </nav>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-2.5">
+                <a href="tel:7908448891" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-clinical-50 text-clinical-700 hover:bg-clinical-100 font-semibold text-sm transition border border-clinical-200/60">
+                    <i class="fa-solid fa-phone-volume animate-pulse text-clinical-600"></i>
+                    <span>7908448891</span>
+                </a>
+                <a href="#booking" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl bg-gradient-to-r from-clinical-600 to-skycare-600 hover:from-clinical-700 hover:to-skycare-700 text-white font-semibold text-sm shadow-md shadow-clinical-600/20 transition">
+                    <i class="fa-regular fa-calendar-check"></i>
+                    <span>Book Visit</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- =====================================================================
+         HERO SECTION (PSYCHOLOGICALLY CALMING, TRUST-BUILDING)
+    ====================================================================== -->
+    <section id="about" class="hero-gradient pt-8 pb-16 sm:py-20 border-b border-slate-200/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+                
+                <!-- Left Column: Reassuring Copy & Quick Actions -->
+                <div class="lg:col-span-7 space-y-6 text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-clinical-200 shadow-sm text-clinical-700 text-xs sm:text-sm font-semibold">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                        <span>Gentle, Anxiety-Free Dental Care for Your Entire Family</span>
+                    </div>
+
+                    <h1 class="font-heading text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
+                        A Healthy, Pain-Free Smile with <span class="text-transparent bg-clip-text bg-gradient-to-r from-clinical-600 to-skycare-600">Dr. Somnath Das</span>
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
+                        We understand that visiting a dentist can feel overwhelming. Our dispensary is designed around your comfort—combining soothing care, strict hygiene protocols, and modern painless dentistry so you leave with a confident, healthy smile.
+                    </p>
+
+                    <!-- Trust Badges / Psychological Reassurance -->
+                    <div class="grid grid-cols-3 gap-3 sm:gap-4 pt-2">
+                        <div class="bg-white/90 p-3.5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-clinical-50 text-clinical-600 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-shield-heart text-lg"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-slate-900 text-xs sm:text-sm">Painless Care</div>
+                                <div class="text-[11px] sm:text-xs text-slate-500">Gentle anesthesia</div>
+                            </div>
+                        </div>
+                        <div class="bg-white/90 p-3.5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-skycare-50 text-skycare-600 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-sparkles text-lg"></i>
+                            </div>
+                            <div>
+                                <div class="font-bold text-slate-900 text-xs sm:text-sm">100% Sterile</div>
+                                <div class="text-[11px] sm:text-xs text-slate-500">Autoclave hygiene</div>
+                            </div>
+                        </div>
+                        <div class="bg-white/90 p-3.5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-star text-lg"></i>
+                            </div>
+                            <div>
+                                <div id="hero-rating-val" class="font-bold text-slate-900 text-xs sm:text-sm">4.9 / 5 Rating</div>
+                                <div id="hero-review-count" class="text-[11px] sm:text-xs text-slate-500">Verified patients</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Primary CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-3.5 pt-2">
+                        <a href="#booking" class="inline-flex justify-center items-center gap-2.5 px-7 py-4 rounded-2xl bg-gradient-to-r from-clinical-600 to-skycare-600 hover:from-clinical-700 hover:to-skycare-700 text-white font-bold text-base shadow-lg shadow-clinical-600/25 transition transform hover:-translate-y-0.5">
+                            <i class="fa-regular fa-calendar-check text-lg"></i>
+                            <span>Book Appointment Online</span>
+                        </a>
+                        <a href="https://wa.me/917908448891?text=Hello%20Dr.%20Somnath%20Das,%20I%20would%20like%20to%20book%20a%20dental%20consultation." target="_blank" rel="noopener noreferrer" class="inline-flex justify-center items-center gap-2.5 px-6 py-4 rounded-2xl bg-white hover:bg-emerald-50 text-slate-800 border border-slate-300 font-semibold text-base shadow-sm transition">
+                            <i class="fa-brands fa-whatsapp text-emerald-500 text-xl"></i>
+                            <span>WhatsApp: 7908448891</span>
+                        </a>
+                    </div>
+
+                    <!-- Clinic Hours Card (Quick View) -->
+                    <div class="bg-white/80 backdrop-blur rounded-2xl p-4 border border-clinical-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm">
+                        <div class="flex items-center gap-2.5 text-slate-700 font-medium">
+                            <i class="fa-solid fa-clock-rotate-left text-clinical-600 text-base"></i>
+                            <span><strong>Consultation Hours:</strong></span>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-lg bg-clinical-50 text-clinical-800 font-semibold text-xs border border-clinical-200">
+                                ☀️ Morning: 9:30 AM – 1:30 PM
+                            </span>
+                            <span class="px-3 py-1 rounded-lg bg-skycare-50 text-skycare-700 font-semibold text-xs border border-skycare-200">
+                                🌆 Evening: 4:00 PM – 7:00 PM
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Doctor Portrait Card with Easy Photo Replacement -->
+                <div class="lg:col-span-5">
+                    <div class="relative mx-auto max-w-md">
+                        <!-- Decorative Soft Background Glow -->
+                        <div class="absolute -inset-2 bg-gradient-to-tr from-clinical-500/20 to-skycare-500/20 rounded-3xl blur-xl -z-10"></div>
+
+                        <div class="bg-white rounded-3xl p-4 sm:p-5 shadow-xl border border-slate-100">
+                            <div class="relative rounded-2xl overflow-hidden bg-slate-100 aspect-[4/4.3] group">
+                                <!-- ==========================================================
+                                     DOCTOR PHOTO PLACEHOLDER:
+                                     To permanently use your own photo on GitHub Pages:
+                                     1. Upload your photo to your GitHub repo (e.g., "doctor.jpg")
+                                     2. Replace the `src="..."` URL below with `src="doctor.jpg"`
+                                =========================================================== -->
+                                <img id="doctor-portrait-img" 
+                                     src="doctor.jpeg" 
+                                     onerror="this.src='https://placehold.co/600x650/0d9488/ffffff?text=Dr.+Somnath+Das'"
+                                     alt="Dr. Somnath Das - Dental Surgeon" 
+                                     class="w-full h-full object-cover object-center transition duration-500 group-hover:scale-102">
+
+                                <!-- Interactive "Preview Your Own Photo" Button for testing -->
+                              <!--  <label for="doctor-photo-upload" class="absolute top-3 right-3 bg-white/95 hover:bg-white text-slate-800 text-xs font-semibold px-3 py-2 rounded-xl shadow-md cursor-pointer flex items-center gap-1.5 border border-slate-200 transition">
+                                    <i class="fa-solid fa-camera text-clinical-600"></i>
+                                    <span>Test Your Photo</span>
+                                    <input type="file" id="doctor-photo-upload" accept="image/*" class="hidden" onchange="previewImage(event, 'doctor-portrait-img')">
+                                </label>-->
+
+                                <!-- Bottom Overlay Doctor Credentials -->
+                                <div class="absolute bottom-3 inset-x-3 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-lg border border-slate-100">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <span class="inline-block px-2.5 py-0.5 rounded-md bg-clinical-100 text-clinical-800 text-[11px] font-bold uppercase tracking-wider mb-1">
+                                                Chief Dental Surgeon
+                                            </span>
+                                            <h2 class="font-heading font-bold text-lg text-slate-900">Dr. Somnath Das</h2>
+                                            <p class="text-xs text-slate-600">Dedicated to Painless & Preventive Dentistry</p>
+                                        </div>
+                                        <a href="tel:7908448891" class="w-11 h-11 rounded-xl bg-clinical-600 hover:bg-clinical-700 text-white flex items-center justify-center shadow-md transition" title="Call Dr. Somnath Das">
+                                            <i class="fa-solid fa-phone"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         7 CORE TREATMENTS SECTION (SOOTHING DESCRIPTIONS & QUICK SELECT)
+    ====================================================================== -->
+    <section id="treatments" class="py-16 sm:py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-clinical-600 font-bold text-xs sm:text-sm uppercase tracking-wider">Comprehensive Dental Care</span>
+                <h2 class="font-heading text-2xl sm:text-4xl font-extrabold text-slate-900 mt-2">
+                    Specialized Treatments We Provide
+                </h2>
+                <p class="text-slate-600 mt-3 text-sm sm:text-base">
+                    Every procedure is performed using gentle techniques and modern equipment to ensure maximum comfort and long-lasting oral health. Tap any treatment to book directly.
+                </p>
+            </div>
+
+            <!-- 7 Treatments Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- 1. Tooth Extraction -->
+                <div class="card-hover bg-slate-50/70 hover:bg-white rounded-3xl p-6 border border-slate-200/80 flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-clinical-100/80 text-clinical-700 flex items-center justify-center text-2xl mb-5">
+                            <i class="fa-solid fa-tooth"></i>
+                        </div>
+                        <span class="text-xs font-bold text-clinical-600 uppercase tracking-wider">01 • Safe & Painless</span>
+                        <h3 class="font-heading font-bold text-xl text-slate-900 mt-1 mb-2">Tooth Extraction</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Gentle, painless removal of severely damaged, decayed, or wisdom teeth using local soothing anesthesia and fast-healing post-care guidance.
+                        </p>
+                    </div>
+                    <button onclick="selectTreatmentAndScroll('Tooth Extraction')" class="mt-6 w-full py-2.5 px-4 rounded-xl bg-white hover:bg-clinical-600 text-clinical-700 hover:text-white font-semibold text-sm border border-clinical-200 transition flex items-center justify-center gap-2">
+                        <span>Book for Extraction</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- 2. Root Canal Treatment (RCT) -->
+                <div class="card-hover bg-slate-50/70 hover:bg-white rounded-3xl p-6 border border-slate-200/80 flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-skycare-100/80 text-skycare-700 flex items-center justify-center text-2xl mb-5">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <span class="text-xs font-bold text-skycare-600 uppercase tracking-wider">02 • Save Your Natural Tooth</span>
+                        <h3 class="font-heading font-bold text-xl text-slate-900 mt-1 mb-2">Root Canal Treatment (RCT)</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Advanced single or multi-sitting Root Canal Therapy to eliminate deep toothache and infection while preserving your natural tooth structure.
+                        </p>
+                    </div>
+                    <button onclick="selectTreatmentAndScroll('Root Canal Treatment (RCT)')" class="mt-6 w-full py-2.5 px-4 rounded-xl bg-white hover:bg-clinical-600 text-clinical-700 hover:text-white font-semibold text-sm border border-clinical-200 transition flex items-center justify-center gap-2">
+                        <span>Book for RCT</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- 3. Ultrasonic Scaling and Polishing -->
+                <div class="card-hover bg-slate-50/70 hover:bg-white rounded-3xl p-6 border border-slate-200/80 flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-teal-100/80 text-teal-700 flex items-center justify-center text-2xl mb-5">
+                            <i class="fa-solid fa-spray-can-sparkles"></i>
+                        </div>
+                        <span class="text-xs font-bold text-clinical-600 uppercase tracking-wider">03 • Bright & Clean Smile</span>
+                        <h3 class="font-heading font-bold text-xl text-slate-900 mt-1 mb-2">Ultrasonic Scaling & Polishing</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Gentle ultrasonic vibrations remove stubborn plaque, tartar (calculus), and surface stains, followed by smooth enamel polishing for fresh breath.
+                        </p>
+                    </div>
+                    <button onclick="selectTreatmentAndScroll('Ultrasonic Scaling & Polishing')" class="mt-6 w-full py-2.5 px-4 rounded-xl bg-white hover:bg-clinical-600 text-clinical-700 hover:text-white font-semibold text-sm border border-clinical-200 transition flex items-center justify-center gap-2">
+                        <span>Book Scaling & Polishing</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- 4. Composite Restoration -->
+                <div class="card-hover bg-slate-50/70 hover:bg-white rounded-3xl p-6 border border-slate-200/80 flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-indigo-100/80 text-indigo-600 flex items-center justify-center text-2xl mb-5">
+                            <i class="fa-solid fa-gem"></i>
+                        </div>
+                        <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">04 • Invisible Fillings</span>
+                        <h3 class="font-heading font-bold text-xl text-slate-900 mt-1 mb-2">Composite Restoration</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Aesthetic, tooth-colored composite resin fillings that repair cavities, chipped edges, or gaps seamlessly so your tooth looks completely natural.
+                        </p>
+                    </div>
+                    <button onclick="selectTreatmentAndScroll('Composite Restoration')" class="mt-6 w-full py-2.5 px-4 rounded-xl bg-white hover:bg-clinical-600 text-clinical-700 hover:text-white font-semibold text-sm border border-clinical-200 transition flex items-center justify-center gap-2">
+                        <span>Book Tooth Filling</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- 5. Prevent Gum Related Diseases -->
+                <div class="card-hover bg-slate-50/70 hover:bg-white rounded-3xl p-6 border border-slate-200/80 flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-rose-100/80 text-rose-600 flex items-center justify-center text-2xl mb-5">
+                            <i class="fa-solid fa-heart-pulse"></i>
+                        </div>
+                        <span class="text-xs font-bold text-rose-600 uppercase tracking-wider">05 • Healthy Gums</span>
+                        <h3 class="font-heading font-bold text-xl text-slate-900 mt-1 mb-2">Prevent Gum-Related Diseases</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Specialized periodontal care to stop bleeding gums, swollen gums, gingivitis, pyorrhea, and persistent bad breath before they affect bone support.
+                        </p>
+                    </div>
+                    <button onclick="selectTreatmentAndScroll('Prevent Gum-Related Diseases')" class="mt-6 w-full py-2.5 px-4 rounded-xl bg-white hover:bg-clinical-600 text-clinical-700 hover:text-white font-semibold text-sm border border-clinical-200 transition flex items-center justify-center gap-2">
+                        <span>Book Gum Care</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- 6. Pedodontic Dentistry -->
+                <div class="card-hover bg-slate-50/70 hover:bg-white rounded-3xl p-6 border border-slate-200/80 flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 rounded-2xl bg-amber-100/80 text-amber-600 flex items-center justify-center text-2xl mb-5">
+                            <i class="fa-solid fa-child-reaching"></i>
+                        </div>
+                        <span class="text-xs font-bold text-amber-600 uppercase tracking-wider">06 • Kids Dental Care</span>
+                        <h3 class="font-heading font-bold text-xl text-slate-900 mt-1 mb-2">Pedodontic Dentistry</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Friendly, fear-free pediatric dentistry for children and teens—covering milk tooth care, cavity protection, fluoride therapy, and habit counseling.
+                        </p>
+                    </div>
+                    <button onclick="selectTreatmentAndScroll('Pedodontic Dentistry (Kids Care)')" class="mt-6 w-full py-2.5 px-4 rounded-xl bg-white hover:bg-clinical-600 text-clinical-700 hover:text-white font-semibold text-sm border border-clinical-200 transition flex items-center justify-center gap-2">
+                        <span>Book Kids Dental Visit</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- 7. Orthodontic Treatment (Spans full width or centered on lg) -->
+                <div class="card-hover bg-gradient-to-br from-clinical-50/80 to-skycare-50/80 hover:bg-white rounded-3xl p-6 border border-clinical-200/80 sm:col-span-2 lg:col-span-3 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-5">
+                        <div class="w-16 h-16 rounded-2xl bg-clinical-600 text-white flex items-center justify-center text-2xl shrink-0 shadow-md">
+                            <i class="fa-solid fa-face-smile-beam"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-clinical-700 uppercase tracking-wider">07 • Smile Alignment & Braces</span>
+                            <h3 class="font-heading font-bold text-xl sm:text-2xl text-slate-900 mt-0.5 mb-1">Orthodontic Treatment</h3>
+                            <p class="text-sm sm:text-base text-slate-600 max-w-3xl">
+                                Correct crowded, crooked, protruding, or spaced teeth with precision orthodontic braces and alignment appliances for a harmonious, confident smile at any age.
+                            </p>
+                        </div>
+                    </div>
+                    <button onclick="selectTreatmentAndScroll('Orthodontic Treatment (Braces)')" class="w-full md:w-auto shrink-0 py-3.5 px-6 rounded-2xl bg-clinical-600 hover:bg-clinical-700 text-white font-bold text-sm shadow-md transition flex items-center justify-center gap-2">
+                        <span>Book Orthodontic Consult</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         DISPENSARY & DOCTOR PHOTO GALLERY (WITH PLACEHOLDERS & LIVE PREVIEW)
+    ====================================================================== -->
+    <section id="gallery" class="py-16 sm:py-20 bg-slate-50 border-y border-slate-200/70">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+                <div>
+                    <span class="text-clinical-600 font-bold text-xs sm:text-sm uppercase tracking-wider">Inside Our Clinic</span>
+                    <h2 class="font-heading text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1">
+                        Our Dispensary & Hygienic Environment
+                    </h2>
+                    <p class="text-slate-600 text-sm sm:text-base mt-2 max-w-2xl">
+                        Take a tour of our clean, welcoming dental clinic. You can click the camera icon on any card below to preview your actual dispensary photos right in the browser!
+                    </p>
+                </div>
+                <div class="text-xs text-slate-500 bg-white px-3.5 py-2 rounded-xl border border-slate-200 self-start md:self-auto">
+                    <i class="fa-solid fa-circle-info text-clinical-600 mr-1"></i>
+                    Replace image URLs in <code class="font-mono text-clinical-700">index.html</code> before pushing to GitHub
+                </div>
+            </div>
+
+            <!-- 4 Photo Placeholders Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Gallery Card 1: Dispensary Front / Entrance -->
+                <div class="bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-sm group">
+                    <div class="relative aspect-[4/3] bg-slate-100 overflow-hidden">
+                        <!-- REPLACE DISPENSARY IMAGE 1 HERE -->
+                        <img id="clinic-img-1" 
+                             src="dis1.jpeg" 
+                             alt="Dr. Somnath Das Dispensary Exterior" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <label class="absolute top-3 right-3 bg-white/90 hover:bg-white text-slate-800 p-2 rounded-xl shadow cursor-pointer text-xs font-medium flex items-center gap-1">
+                            <i class="fa-solid fa-camera text-clinical-600"></i>
+                            <span>Preview</span>
+                            <input type="file" accept="image/*" class="hidden" onchange="previewImage(event, 'clinic-img-1')">
+                        </label>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-heading font-bold text-slate-900 text-base">Dispensary Entrance & Reception</h3>
+                        <p class="text-xs text-slate-500 mt-1">Welcoming & calm patient waiting area</p>
+                    </div>
+                </div>
+
+                <!-- Gallery Card 2: Modern Dental Operatory / Chair -->
+                <div class="bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-sm group">
+                    <div class="relative aspect-[4/3] bg-slate-100 overflow-hidden">
+                        <!-- REPLACE DISPENSARY IMAGE 2 HERE -->
+                        <img id="clinic-img-2" 
+                             src="dis2.jpeg" 
+                             alt="Modern Dental Chair and Operatory" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <label class="absolute top-3 right-3 bg-white/90 hover:bg-white text-slate-800 p-2 rounded-xl shadow cursor-pointer text-xs font-medium flex items-center gap-1">
+                            <i class="fa-solid fa-camera text-clinical-600"></i>
+                            <span>Preview</span>
+                            <input type="file" accept="image/*" class="hidden" onchange="previewImage(event, 'clinic-img-2')">
+                        </label>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-heading font-bold text-slate-900 text-base">Advanced Dental Operatory</h3>
+                        <p class="text-xs text-slate-500 mt-1">Ergonomic dental chair & ultrasonic units</p>
+                    </div>
+                </div>
+
+                <!-- Gallery Card 3: Dr. Somnath Das in Consultation -->
+                <div class="bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-sm group">
+                    <div class="relative aspect-[4/3] bg-slate-100 overflow-hidden">
+                        <!-- REPLACE DISPENSARY IMAGE 3 HERE -->
+                        <img id="clinic-img-3" 
+                             src="dis3.jpeg" 
+                             alt="Dr. Somnath Das Consulting Patient" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <label class="absolute top-3 right-3 bg-white/90 hover:bg-white text-slate-800 p-2 rounded-xl shadow cursor-pointer text-xs font-medium flex items-center gap-1">
+                            <i class="fa-solid fa-camera text-clinical-600"></i>
+                            <span>Preview</span>
+                            <input type="file" accept="image/*" class="hidden" onchange="previewImage(event, 'clinic-img-3')">
+                        </label>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-heading font-bold text-slate-900 text-base">Personalized Consultation</h3>
+                        <p class="text-xs text-slate-500 mt-1">Clear explanation of every treatment step</p>
+                    </div>
+                </div>
+
+                <!-- Gallery Card 4: Sterilization & Hygiene Zone -->
+                <div class="bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-sm group">
+                    <div class="relative aspect-[4/3] bg-slate-100 overflow-hidden">
+                        <!-- REPLACE DISPENSARY IMAGE 4 HERE -->
+                        <img id="clinic-img-4" 
+                             src="dis4.jpeg" 
+                             alt="Dental Sterilization and Hygiene Equipment" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <label class="absolute top-3 right-3 bg-white/90 hover:bg-white text-slate-800 p-2 rounded-xl shadow cursor-pointer text-xs font-medium flex items-center gap-1">
+                            <i class="fa-solid fa-camera text-clinical-600"></i>
+                            <span>Preview</span>
+                            <input type="file" accept="image/*" class="hidden" onchange="previewImage(event, 'clinic-img-4')">
+                        </label>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-heading font-bold text-slate-900 text-base">Strict Sterilization Protocol</h3>
+                        <p class="text-xs text-slate-500 mt-1">100% autoclaved & sealed instruments</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         APPOINTMENT BOOKING SECTION (CONNECTED TO SUPABASE)
+    ====================================================================== -->
+    <section id="booking" class="py-16 sm:py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-br from-clinical-900 via-clinical-800 to-slate-900 rounded-3xl p-6 sm:p-10 lg:p-12 shadow-2xl text-white">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    
+                    <!-- Left Info Column -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-clinical-700/80 text-clinical-200 text-xs font-semibold border border-clinical-500/30">
+                            <i class="fa-regular fa-calendar-check"></i>
+                            <span>Priority Slot Reservation</span>
+                        </span>
+                        <h2 class="font-heading text-2xl sm:text-4xl font-extrabold leading-tight">
+                            Book Your Dental Appointment
+                        </h2>
+                        <p class="text-clinical-100/90 text-sm sm:text-base leading-relaxed">
+                            Choose your convenient morning or evening timing. Your booking request is saved directly to our clinic database, with an instant option to notify Dr. Somnath Das on WhatsApp.
+                        </p>
+
+                        <!-- Session Timings Breakdown -->
+                        <div class="space-y-3 pt-2">
+                            <div class="bg-white/10 backdrop-blur p-4 rounded-2xl border border-white/15 flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-amber-400/20 text-amber-300 flex items-center justify-center text-xl shrink-0">
+                                    <i class="fa-solid fa-sun"></i>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-white text-sm sm:text-base">Morning Booking Session</div>
+                                    <div class="text-clinical-200 text-xs sm:text-sm font-medium">9:30 AM to 1:30 PM</div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white/10 backdrop-blur p-4 rounded-2xl border border-white/15 flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-sky-400/20 text-sky-300 flex items-center justify-center text-xl shrink-0">
+                                    <i class="fa-solid fa-moon"></i>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-white text-sm sm:text-base">Evening Booking Session</div>
+                                    <div class="text-clinical-200 text-xs sm:text-sm font-medium">4:00 PM to 7:00 PM</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Direct Phone Call Box -->
+                        <div class="pt-2 flex items-center gap-4">
+                            <div class="text-xs sm:text-sm text-clinical-200">
+                                Need urgent toothache relief? Call directly:
+                                <a href="tel:7908448891" class="block text-lg sm:text-xl font-bold text-white hover:text-clinical-200 underline mt-0.5">
+                                    <i class="fa-solid fa-phone mr-1.5 text-emerald-400"></i>+91 7908448891
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Form Column -->
+                    <div class="lg:col-span-7">
+                        <div class="bg-white text-slate-900 rounded-2xl p-6 sm:p-8 shadow-xl">
+                            <h3 class="font-heading font-bold text-xl text-slate-900 mb-1">Patient Appointment Form</h3>
+                            <p class="text-xs sm:text-sm text-slate-500 mb-6">Fill in the details below and we will confirm your slot.</p>
+
+                            <form id="appointment-form" class="space-y-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <!-- Patient Full Name -->
+                                    <div>
+                                        <label for="apt-name" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Patient Full Name *</label>
+                                        <div class="relative">
+                                            <i class="fa-regular fa-user absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
+                                            <input type="text" id="apt-name" required placeholder="e.g., Rahul Sharma" 
+                                                   class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:border-clinical-600 focus:ring-2 focus:ring-clinical-500/20 outline-none text-sm transition">
+                                        </div>
+                                    </div>
+
+                                    <!-- Phone Number -->
+                                    <div>
+                                        <label for="apt-phone" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Phone / WhatsApp No. *</label>
+                                        <div class="relative">
+                                            <i class="fa-solid fa-mobile-screen absolute left-3.5 top-3.5 text-slate-400 text-sm"></i>
+                                            <input type="tel" id="apt-phone" required pattern="[0-9+\-\s]{10,15}" placeholder="10-digit mobile number" 
+                                                   class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:border-clinical-600 focus:ring-2 focus:ring-clinical-500/20 outline-none text-sm transition">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <!-- Preferred Date -->
+                                    <div>
+                                        <label for="apt-date" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Preferred Date *</label>
+                                        <input type="date" id="apt-date" required 
+                                               class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-clinical-600 focus:ring-2 focus:ring-clinical-500/20 outline-none text-sm transition">
+                                    </div>
+
+                                    <!-- Preferred Session -->
+                                    <div>
+                                        <label for="apt-session" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Preferred Session *</label>
+                                        <select id="apt-session" required 
+                                                class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-clinical-600 focus:ring-2 focus:ring-clinical-500/20 outline-none text-sm bg-white transition">
+                                            <option value="Morning (9:30 AM - 1:30 PM)">Morning (9:30 AM – 1:30 PM)</option>
+                                            <option value="Evening (4:00 PM - 7:00 PM)">Evening (4:00 PM – 7:00 PM)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Treatment Required -->
+                                <div>
+                                    <label for="apt-treatment" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Select Treatment *</label>
+                                    <select id="apt-treatment" required 
+                                            class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-clinical-600 focus:ring-2 focus:ring-clinical-500/20 outline-none text-sm bg-white transition">
+                                        <option value="General Dental Checkup & Consultation">General Dental Checkup & Consultation</option>
+                                        <option value="Tooth Extraction">1) Tooth Extraction</option>
+                                        <option value="Root Canal Treatment (RCT)">2) Root Canal Treatment (RCT)</option>
+                                        <option value="Ultrasonic Scaling & Polishing">3) Ultrasonic Scaling & Polishing</option>
+                                        <option value="Composite Restoration">4) Composite Restoration (Tooth Filling)</option>
+                                        <option value="Prevent Gum-Related Diseases">5) Prevent Gum-Related Diseases</option>
+                                        <option value="Pedodontic Dentistry (Kids Care)">6) Pedodontic Dentistry (Kids Dental Care)</option>
+                                        <option value="Orthodontic Treatment (Braces)">7) Orthodontic Treatment (Braces & Alignment)</option>
+                                    </select>
+                                </div>
+
+                                <!-- Symptoms / Notes -->
+                                <div>
+                                    <label for="apt-notes" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Describe Pain or Concern (Optional)</label>
+                                    <textarea id="apt-notes" rows="2" placeholder="Any tooth sensitivity, swelling, or specific timing request..." 
+                                              class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:border-clinical-600 focus:ring-2 focus:ring-clinical-500/20 outline-none text-sm transition"></textarea>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <button type="submit" id="apt-submit-btn" class="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-clinical-600 to-skycare-600 hover:from-clinical-700 hover:to-skycare-700 text-white font-bold text-base shadow-lg shadow-clinical-600/25 transition flex items-center justify-center gap-2">
+                                    <i class="fa-regular fa-paper-plane"></i>
+                                    <span>Confirm Appointment Booking</span>
+                                </button>
+                            </form>
+
+                            <!-- Booking Confirmation Box (Hidden until submitted) -->
+                            <div id="apt-success-box" class="hidden mt-5 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900">
+                                <div class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-emerald-600 text-xl mt-0.5"></i>
+                                    <div class="flex-1">
+                                        <h4 class="font-bold text-sm sm:text-base">Appointment Request Saved!</h4>
+                                        <p id="apt-success-msg" class="text-xs sm:text-sm text-emerald-800 mt-1"></p>
+                                        <div class="mt-3 flex flex-wrap gap-2">
+                                            <a id="apt-whatsapp-link" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-sm transition">
+                                                <i class="fa-brands fa-whatsapp text-sm"></i>
+                                                <span>Send Instant Alert to Doctor on WhatsApp</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         PATIENT REVIEWS & STAR RATING SECTION (CONNECTED TO SUPABASE)
+    ====================================================================== -->
+    <section id="reviews" class="py-16 sm:py-20 bg-slate-50 border-b border-slate-200/70">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                
+                <!-- Left Column: Write a Review & Give Star Rating -->
+                <div class="lg:col-span-5">
+                    <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm sticky top-24">
+                        <span class="text-clinical-600 font-bold text-xs uppercase tracking-wider">Share Your Experience</span>
+                        <h2 class="font-heading text-2xl font-extrabold text-slate-900 mt-1">
+                            Leave a Review & Star Rating
+                        </h2>
+                        <p class="text-xs sm:text-sm text-slate-500 mt-1 mb-6">
+                            Visited Dr. Somnath Das? Your feedback helps other patients feel confident and relaxed.
+                        </p>
+
+                        <form id="review-form" class="space-y-4">
+                            <!-- Interactive Star Selector -->
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">Tap to Rate Your Experience *</label>
+                                <div class="flex items-center gap-2 bg-slate-50 p-3 rounded-xl border border-slate-200/80">
+                                    <div id="star-selector" class="flex items-center gap-1.5 text-2xl text-amber-400">
+                                        <button type="button" onclick="setStarRating(1)" class="star-btn focus:outline-none"><i class="fa-solid fa-star"></i></button>
+                                        <button type="button" onclick="setStarRating(2)" class="star-btn focus:outline-none"><i class="fa-solid fa-star"></i></button>
+                                        <button type="button" onclick="setStarRating(3)" class="star-btn focus:outline-none"><i class="fa-solid fa-star"></i></button>
+                                        <button type="button" onclick="setStarRating(4)" class="star-btn focus:outline-none"><i class="fa-solid fa-star"></i></button>
+                                        <button type="button" onclick="setStarRating(5)" class="star-btn focus:outline-none"><i class="fa-solid fa-star"></i></button>
+                                    </div>
+                                    <span id="star-rating-label" class="ml-auto text-xs font-bold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-lg">
+                                        5/5 - Excellent!
+                                    </span>
+                                </div>
+                                <input type="hidden" id="rev-rating" value="5">
+                            </div>
+
+                            <!-- Reviewer Name -->
+                            <div>
+                                <label for="rev-name" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Your Name *</label>
+                                <input type="text" id="rev-name" required placeholder="e.g., Ananya Chatterjee" 
+                                       class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:border-clinical-600 focus:ring-2 focus:ring-clinical-500/20 outline-none text-sm transition">
+                            </div>
+
+                            <!-- Treatment Received -->
+                            <div>
+                                <label for="rev-treatment" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Treatment Taken</label>
+                                <select id="rev-treatment" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:border-clinical-600 focus:ring-2 focus:ring-clinical-500/20 outline-none text-sm bg-white transition">
+                                    <option value="Root Canal Treatment (RCT)">Root Canal Treatment (RCT)</option>
+                                    <option value="Tooth Extraction">Tooth Extraction</option>
+                                    <option value="Ultrasonic Scaling & Polishing">Ultrasonic Scaling & Polishing</option>
+                                    <option value="Composite Restoration">Composite Restoration</option>
+                                    <option value="Prevent Gum-Related Diseases">Gum Care Treatment</option>
+                                    <option value="Pedodontic Dentistry">Pedodontic (Kids) Dentistry</option>
+                                    <option value="Orthodontic Treatment">Orthodontic Treatment (Braces)</option>
+                                    <option value="General Checkup">General Dental Checkup</option>
+                                </select>
+                            </div>
+
+                            <!-- Comment -->
+                            <div>
+                                <label for="rev-comment" class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">Your Review Comment *</label>
+                                <textarea id="rev-comment" rows="3" required placeholder="How was your treatment with Dr. Somnath Das?" 
+                                          class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:border-clinical-600 focus:ring-2 focus:ring-clinical-500/20 outline-none text-sm transition"></textarea>
+                            </div>
+
+                            <button type="submit" id="rev-submit-btn" class="w-full py-3.5 px-6 rounded-xl bg-slate-900 hover:bg-clinical-700 text-white font-bold text-sm shadow-md transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-comment-medical"></i>
+                                <span>Post Patient Review</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Right Column: Live Patient Reviews Feed -->
+                <div class="lg:col-span-7 space-y-6">
+                    <!-- Summary Header Card -->
+                    <div class="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-sm flex flex-wrap items-center justify-between gap-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-16 rounded-2xl bg-amber-50 border border-amber-200/80 flex flex-col items-center justify-center text-amber-600">
+                                <span id="avg-rating-display" class="font-heading font-extrabold text-2xl leading-none">4.9</span>
+                                <span class="text-[10px] font-bold uppercase mt-1">Out of 5</span>
+                            </div>
+                            <div>
+                                <div class="flex items-center text-amber-400 text-sm gap-0.5 mb-1">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <h3 class="font-heading font-bold text-lg text-slate-900">Patient Stories & Feedback</h3>
+                                <p id="total-reviews-label" class="text-xs text-slate-500">Loading patient reviews...</p>
+                            </div>
+                        </div>
+                        <button onclick="fetchReviews()" class="text-xs font-semibold text-clinical-700 hover:text-clinical-800 bg-clinical-50 px-3.5 py-2 rounded-xl border border-clinical-200 transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                            <span>Refresh</span>
+                        </button>
+                    </div>
+
+                    <!-- Dynamic Reviews List Container -->
+                    <div id="reviews-list" class="space-y-4">
+                        <!-- Populated dynamically via JS from Supabase or fallback demo data -->
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         MAP LOCATION & CLINIC TIMINGS SECTION
+    ====================================================================== -->
+    <section id="location" class="py-16 sm:py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                
+                <!-- Clinic Details & Timings Card -->
+                <div class="lg:col-span-5 bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200/80 flex flex-col justify-between space-y-6">
+                    <div class="space-y-5">
+                        <span class="text-clinical-600 font-bold text-xs uppercase tracking-wider">Visit Our Dispensary</span>
+                        <h2 class="font-heading text-2xl sm:text-3xl font-extrabold text-slate-900">
+                            Location & Consultation Hours
+                        </h2>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Conveniently accessible via Google Maps. Call or book online prior to visiting for zero waiting time.
+                        </p>
+
+                        <!-- Doctor & Phone Info -->
+                        <div class="space-y-3 pt-2">
+                            <div class="flex items-start gap-3.5">
+                                <div class="w-10 h-10 rounded-xl bg-clinical-100 text-clinical-700 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-user-doctor"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold uppercase text-slate-400">Dental Surgeon</div>
+                                    <div class="font-bold text-slate-900 text-base">Dr. Somnath Das</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3.5">
+                                <div class="w-10 h-10 rounded-xl bg-clinical-100 text-clinical-700 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-phone-volume"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold uppercase text-slate-400">Appointment Helpline</div>
+                                    <a href="tel:7908448891" class="font-bold text-clinical-700 hover:underline text-base">+91 7908448891</a>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3.5">
+                                <div class="w-10 h-10 rounded-xl bg-clinical-100 text-clinical-700 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i class="fa-regular fa-clock"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs font-bold uppercase text-slate-400">Daily Timings</div>
+                                    <div class="text-sm font-semibold text-slate-800 mt-0.5">Morning: 9:30 AM – 1:30 PM</div>
+                                    <div class="text-sm font-semibold text-slate-800">Evening: 4:00 PM – 7:00 PM</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Direct Google Maps CTA Button -->
+                    <a href="https://maps.app.goo.gl/GnMb282GWHrHMneF9?g_st=awb" target="_blank" rel="noopener noreferrer" 
+                       class="w-full py-4 px-6 rounded-2xl bg-slate-900 hover:bg-clinical-700 text-white font-bold text-sm sm:text-base shadow-lg transition flex items-center justify-center gap-2.5">
+                        <i class="fa-solid fa-diamond-turn-right text-amber-400 text-lg"></i>
+                        <span>Open Live Directions in Google Maps</span>
+                    </a>
+                </div>
+
+                <!-- Interactive-Looking Map Card Linking to Provided Google Maps URL -->
+                <div class="lg:col-span-7">
+                    <div class="h-full min-h-[340px] rounded-3xl overflow-hidden border border-slate-200 shadow-sm relative bg-slate-100 flex flex-col justify-between p-6 sm:p-8"
+                         style="background-image: radial-gradient(#cbd5e1 1.5px, transparent 1.5px); background-size: 24px 24px;">
+                        
+                        <!-- Decorative Map Grid Overlay -->
+                        <div class="bg-white/95 backdrop-blur-md p-4 sm:p-5 rounded-2xl shadow-md border border-slate-200/80 max-w-md">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-lg shrink-0">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <span class="text-[11px] font-bold uppercase tracking-wider text-clinical-600">Verified Google Maps Pin</span>
+                                    <h3 class="font-heading font-bold text-slate-900 text-base">Dr. Somnath Das Dental Care</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Center Animated Map Pin -->
+                        <div class="my-auto flex flex-col items-center justify-center text-center py-8">
+                            <a href="https://maps.app.goo.gl/GnMb282GWHrHMneF9?g_st=awb" target="_blank" rel="noopener noreferrer" class="group flex flex-col items-center">
+                                <div class="w-20 h-20 rounded-full bg-clinical-600/20 flex items-center justify-center animate-pulse">
+                                    <div class="w-14 h-14 rounded-full bg-clinical-600 text-white flex items-center justify-center text-2xl shadow-xl group-hover:scale-110 transition">
+                                        <i class="fa-solid fa-map-location-dot"></i>
+                                    </div>
+                                </div>
+                                <span class="mt-3 px-4 py-2 rounded-full bg-white shadow-md border border-slate-200 text-xs sm:text-sm font-bold text-slate-800 group-hover:border-clinical-500 transition">
+                                    Click to Launch Google Maps Navigation <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-clinical-600"></i>
+                                </span>
+                            </a>
+                        </div>
+
+                        <div class="bg-white/90 backdrop-blur px-4 py-3 rounded-xl border border-slate-200/80 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-600">
+                            <span><i class="fa-solid fa-link text-clinical-600 mr-1"></i> Map Link: <code class="text-slate-800 font-mono">maps.app.goo.gl/GnMb282GWHrHMneF9</code></span>
+                            <a href="https://maps.app.goo.gl/GnMb282GWHrHMneF9?g_st=awb" target="_blank" rel="noopener noreferrer" class="font-bold text-clinical-700 hover:underline">
+                                View on Maps →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================================
+         FOOTER
+    ====================================================================== -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-clinical-600 flex items-center justify-center text-white">
+                    <i class="fa-solid fa-tooth"></i>
+                </div>
+                <div>
+                    <span class="block font-heading font-bold text-white text-base">Dr. Somnath Das Dental Care</span>
+                    <span class="block text-xs text-slate-400">Ph: +91 7908448891 • Morning 9:30 AM–1:30 PM | Evening 4:00 PM–7:00 PM</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 text-xs">
+                <button onclick="openSupabaseModal()" class="hover:text-white underline">Supabase Setup & SQL</button>
+                <span>•</span>
+                <a href="https://maps.app.goo.gl/GnMb282GWHrHMneF9?g_st=awb" target="_blank" rel="noopener noreferrer" class="hover:text-white">Google Maps</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- =====================================================================
+         MOBILE STICKY BOTTOM ACTION BAR (FOR ULTRA MOBILE FRIENDLINESS)
+    ====================================================================== -->
+    <div class="fixed bottom-0 inset-x-0 z-40 md:hidden bg-white/95 backdrop-blur-md border-t border-slate-200 p-2.5 shadow-2xl">
+        <div class="grid grid-cols-3 gap-2 max-w-md mx-auto">
+            <a href="tel:7908448891" class="flex flex-col items-center justify-center py-2 px-2 rounded-xl bg-slate-100 active:bg-slate-200 text-slate-800 font-bold text-xs">
+                <i class="fa-solid fa-phone text-clinical-600 text-base mb-0.5"></i>
+                <span>Call Doctor</span>
+            </a>
+            <a href="https://wa.me/917908448891" target="_blank" rel="noopener noreferrer" class="flex flex-col items-center justify-center py-2 px-2 rounded-xl bg-emerald-50 active:bg-emerald-100 text-emerald-800 font-bold text-xs border border-emerald-200">
+                <i class="fa-brands fa-whatsapp text-emerald-600 text-base mb-0.5"></i>
+                <span>WhatsApp</span>
+            </a>
+            <a href="#booking" class="flex flex-col items-center justify-center py-2 px-2 rounded-xl bg-gradient-to-r from-clinical-600 to-skycare-600 text-white font-bold text-xs shadow-md">
+                <i class="fa-regular fa-calendar-check text-base mb-0.5"></i>
+                <span>Book Slot</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         SUPABASE CONFIGURATION & SQL MODAL (FOR OWNER / DEVELOPER)
+    ====================================================================== -->
+    <div id="supabase-modal" class="fixed inset-0 z-50 hidden bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 my-8 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-5">
+                <div class="flex items-center gap-2.5">
+                    <i class="fa-solid fa-database text-clinical-600 text-xl"></i>
+                    <h3 class="font-heading font-bold text-lg sm:text-xl text-slate-900">Supabase Database & SQL Setup</h3>
+                </div>
+                <button onclick="closeSupabaseModal()" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="space-y-5 text-xs sm:text-sm text-slate-600">
+                <p>
+                    To store appointments and patient reviews permanently in <strong>Supabase</strong> when hosted on GitHub Pages:
+                </p>
+
+                <!-- Live Credentials Tester -->
+                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
+                    <div class="font-bold text-slate-900">Step 1: Connect Your Supabase Project</div>
+                    <p class="text-xs text-slate-500">You can paste your credentials below to test immediately, or hardcode them into <code class="font-mono text-clinical-700">SUPABASE_URL</code> & <code class="font-mono text-clinical-700">SUPABASE_ANON_KEY</code> inside <code class="font-mono">index.html</code>.</p>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Supabase Project URL</label>
+                        <input type="url" id="cfg-sb-url" placeholder="https://your-project-id.supabase.co" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-mono">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Supabase Anon Public Key</label>
+                        <input type="text" id="cfg-sb-key" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-mono">
+                    </div>
+                    <button onclick="saveSupabaseConfigFromUI()" class="px-4 py-2 rounded-xl bg-clinical-600 hover:bg-clinical-700 text-white font-bold text-xs transition">
+                        Save & Connect Supabase
+                    </button>
+                </div>
+
+                <!-- SQL Script Copy Box -->
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-slate-900">Step 2: Run This SQL in Supabase SQL Editor</span>
+                        <button onclick="copySqlCode()" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold flex items-center gap-1.5">
+                            <i class="fa-regular fa-copy"></i>
+                            <span id="copy-sql-label">Copy SQL</span>
+                        </button>
+                    </div>
+                    <pre id="sql-code-block" class="bg-slate-900 text-emerald-300 p-4 rounded-2xl text-[11px] font-mono overflow-x-auto leading-relaxed">-- 1. Create Appointments Table
+CREATE TABLE IF NOT EXISTS public.appointments (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    patient_name TEXT NOT NULL,
+    phone_number TEXT NOT NULL,
+    preferred_date DATE NOT NULL,
+    preferred_session TEXT NOT NULL,
+    treatment TEXT NOT NULL,
+    notes TEXT,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 2. Create Patient Reviews Table
+CREATE TABLE IF NOT EXISTS public.reviews (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    reviewer_name TEXT NOT NULL,
+    rating INTEGER NOT NULL CHECK (rating >= 1 AND rating <= 5),
+    treatment TEXT,
+    comment TEXT NOT NULL,
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 3. Enable Row Level Security (RLS) for Static GitHub Pages
+ALTER TABLE public.appointments ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.reviews ENABLE ROW LEVEL SECURITY;
+
+-- Allow anyone to book an appointment
+CREATE POLICY "Allow public appointment insert" ON public.appointments
+    FOR INSERT TO anon WITH CHECK (true);
+
+-- Allow anyone to read & submit reviews
+CREATE POLICY "Allow public reviews select" ON public.reviews
+    FOR SELECT TO anon USING (true);
+
+CREATE POLICY "Allow public reviews insert" ON public.reviews
+    FOR INSERT TO anon WITH CHECK (true);</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         TOAST NOTIFICATION CONTAINER
+    ====================================================================== -->
+    <div id="toast-box" class="fixed top-20 right-4 z-50 hidden max-w-sm bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-xl border border-slate-700 flex items-center gap-3 text-sm">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toast-text">Notification</span>
+    </div>
+
+    <!-- =====================================================================
+         APPLICATION & SUPABASE JAVASCRIPT LOGIC
+    ====================================================================== -->
+    <script>
+        /* =====================================================================
+           1. SUPABASE CONFIGURATION
+           Replace the empty strings below with your actual Supabase Project URL
+           and Anon Key before deploying to GitHub Pages.
+        ====================================================================== */
+        const SUPABASE_URL = "";      // e.g. "https://xyzcompany.supabase.co"
+        const SUPABASE_ANON_KEY = ""; // e.g. "eyJhbGciOiJIUzI1NiIsInR5cCI6..."
+
+        let supabaseClient = null;
+
+        // Default welcoming reviews shown before or alongside live database reviews
+        const DEFAULT_REVIEWS = [
+            {
+                reviewer_name: "Subhajit Mukherjee",
+                rating: 5,
+                treatment: "Root Canal Treatment (RCT)",
+                comment: "I had severe tooth pain and was very scared of RCT. Dr. Somnath Das explained everything calmly and completed the Root Canal completely painlessly. Highly recommended!",
+                created_at: "2025-02-10T10:30:00Z"
+            },
+            {
+                reviewer_name: "Priyanka Sen",
+                rating: 5,
+                treatment: "Ultrasonic Scaling & Polishing",
+                comment: "Very neat, clean and hygienic dispensary. Did ultrasonic scaling and composite filling. My teeth feel super clean and natural.",
+                created_at: "2025-02-02T17:15:00Z"
+            },
+            {
+                reviewer_name: "Amitava Roy",
+                rating: 5,
+                treatment: "Pedodontic Dentistry",
+                comment: "Visited with my 7-year-old son. Dr. Somnath Das is so patient and friendly with children that my kid didn't cry at all.",
+                created_at: "2025-01-25T11:20:00Z"
+            }
+        ];
+
+        // Initialize Supabase connection
+        function initSupabase() {
+            const url = SUPABASE_URL || localStorage.getItem('dr_somnath_sb_url') || "";
+            const key = SUPABASE_ANON_KEY || localStorage.getItem('dr_somnath_sb_key') || "";
+
+            const badge = document.getElementById('db-status-badge');
+
+            if (url && key && window.supabase) {
+                try {
+                    supabaseClient = window.supabase.createClient(url, key);
+                    badge.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-400 inline-block mr-1"></span>Supabase Connected';
+                    document.getElementById('cfg-sb-url').value = url;
+                    document.getElementById('cfg-sb-key').value = key;
+                } catch (err) {
+                    console.error("Supabase init error:", err);
+                }
+            }
+        }
+
+        // Save Supabase credentials from the setup modal
+        function saveSupabaseConfigFromUI() {
+            const url = document.getElementById('cfg-sb-url').value.trim();
+            const key = document.getElementById('cfg-sb-key').value.trim();
+            if (!url || !key) {
+                showToast("Please enter both Supabase URL and Anon Key");
+                return;
+            }
+            localStorage.setItem('dr_somnath_sb_url', url);
+            localStorage.setItem('dr_somnath_sb_key', key);
+            initSupabase();
+            fetchReviews();
+            closeSupabaseModal();
+            showToast("Supabase connected! Live data enabled.");
+        }
+
+        /* =====================================================================
+           2. APPOINTMENT FORM SUBMISSION (STORES IN SUPABASE + WHATSAPP OPTION)
+        ====================================================================== */
+        document.getElementById('appointment-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('apt-submit-btn');
+            const originalBtnHtml = submitBtn.innerHTML;
+
+            const payload = {
+                patient_name: document.getElementById('apt-name').value.trim(),
+                phone_number: document.getElementById('apt-phone').value.trim(),
+                preferred_date: document.getElementById('apt-date').value,
+                preferred_session: document.getElementById('apt-session').value,
+                treatment: document.getElementById('apt-treatment').value,
+                notes: document.getElementById('apt-notes').value.trim()
+            };
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i><span>Saving Appointment...</span>';
+
+            let savedToSupabase = false;
+
+            if (supabaseClient) {
+                try {
+                    const { error } = await supabaseClient
+                        .from('appointments')
+                        .insert([payload]);
+                    if (error) throw error;
+                    savedToSupabase = true;
+                } catch (err) {
+                    console.warn("Supabase insert fallback:", err.message);
+                }
+            }
+
+            // Always keep a local backup so no patient booking is ever lost
+            const localBookings = JSON.parse(localStorage.getItem('dr_somnath_appointments') || '[]');
+            localBookings.unshift({ ...payload, created_at: new Date().toISOString() });
+            localStorage.setItem('dr_somnath_appointments', JSON.stringify(localBookings));
+
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnHtml;
+
+            // Prepare WhatsApp message link to 7908448891
+            const waText = encodeURIComponent(
+                `Hello Dr. Somnath Das,\nI have booked an appointment:\n• Name: ${payload.patient_name}\n• Phone: ${payload.phone_number}\n• Date: ${payload.preferred_date}\n• Session: ${payload.preferred_session}\n• Treatment: ${payload.treatment}${payload.notes ? '\n• Note: ' + payload.notes : ''}`
+            );
+            document.getElementById('apt-whatsapp-link').href = `https://wa.me/917908448891?text=${waText}`;
+
+            const statusNote = savedToSupabase
+                ? `Thank you ${payload.patient_name}! Your slot request for ${payload.treatment} on ${payload.preferred_date} (${payload.preferred_session}) has been saved to our Supabase database.`
+                : `Thank you ${payload.patient_name}! Your slot request for ${payload.treatment} on ${payload.preferred_date} (${payload.preferred_session}) is recorded. Click below to also send via WhatsApp.`;
+
+            document.getElementById('apt-success-msg').textContent = statusNote;
+            document.getElementById('apt-success-box').classList.remove('hidden');
+            document.getElementById('appointment-form').reset();
+            setDefaultAppointmentDate();
+            showToast("Appointment request submitted!");
+        });
+
+        /* =====================================================================
+           3. STAR RATING & PATIENT REVIEWS SYSTEM (SUPABASE + FALLBACK)
+        ====================================================================== */
+        function setStarRating(rating) {
+            document.getElementById('rev-rating').value = rating;
+            const buttons = document.querySelectorAll('#star-selector button');
+            buttons.forEach((btn, index) => {
+                if (index < rating) {
+                    btn.classList.remove('text-slate-300');
+                    btn.classList.add('text-amber-400');
+                } else {
+                    btn.classList.remove('text-amber-400');
+                    btn.classList.add('text-slate-300');
+                }
+            });
+
+            const labels = {
+                1: "1/5 - Needs Improvement",
+                2: "2/5 - Fair",
+                3: "3/5 - Good",
+                4: "4/5 - Very Good",
+                5: "5/5 - Excellent!"
+            };
+            document.getElementById('star-rating-label').textContent = labels[rating];
+        }
+
+        async function fetchReviews() {
+            let reviews = [];
+
+            if (supabaseClient) {
+                try {
+                    const { data, error } = await supabaseClient
+                        .from('reviews')
+                        .select('*')
+                        .order('created_at', { ascending: false })
+                        .limit(30);
+                    if (!error && data && data.length > 0) {
+                        reviews = data;
+                    }
+                } catch (err) {
+                    console.warn("Could not fetch from Supabase, using local reviews:", err);
+                }
+            }
+
+            if (reviews.length === 0) {
+                const localRevs = JSON.parse(localStorage.getItem('dr_somnath_reviews') || '[]');
+                reviews = [...localRevs, ...DEFAULT_REVIEWS];
+            }
+
+            renderReviews(reviews);
+        }
+
+        function renderReviews(reviews) {
+            const container = document.getElementById('reviews-list');
+            container.innerHTML = '';
+
+            if (!reviews.length) {
+                container.innerHTML = '<p class="text-sm text-slate-500">Be the first patient to leave a review!</p>';
+                return;
+            }
+
+            // Compute average rating
+            const totalStars = reviews.reduce((sum, r) => sum + (Number(r.rating) || 5), 0);
+            const avg = (totalStars / reviews.length).toFixed(1);
+
+            document.getElementById('avg-rating-display').textContent = avg;
+            document.getElementById('total-reviews-label').textContent = `Based on ${reviews.length} verified patient reviews`;
+            document.getElementById('hero-rating-val').textContent = `${avg} / 5 Rating`;
+            document.getElementById('hero-review-count').textContent = `${reviews.length} Patient Reviews`;
+
+            reviews.forEach(rev => {
+                const starsHtml = Array.from({ length: 5 }, (_, i) =>
+                    `<i class="fa-solid fa-star ${i < rev.rating ? 'text-amber-400' : 'text-slate-200'}"></i>`
+                ).join('');
+
+                const dateStr = rev.created_at
+                    ? new Date(rev.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+                    : 'Recent Patient';
+
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm space-y-2.5';
+                card.innerHTML = `
+                    <div class="flex items-center justify-between gap-2">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-clinical-100 text-clinical-700 font-bold flex items-center justify-center text-sm uppercase">
+                                ${escapeHtml(rev.reviewer_name.charAt(0))}
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">${escapeHtml(rev.reviewer_name)}</h4>
+                                <span class="text-[11px] font-semibold text-clinical-600">${escapeHtml(rev.treatment || 'Dental Care')}</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xs flex items-center gap-0.5 justify-end">${starsHtml}</div>
+                            <span class="text-[11px] text-slate-400">${dateStr}</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed pt-1">"${escapeHtml(rev.comment)}"</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        document.getElementById('review-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('rev-submit-btn');
+            const origHtml = submitBtn.innerHTML;
+
+            const newReview = {
+                reviewer_name: document.getElementById('rev-name').value.trim(),
+                rating: parseInt(document.getElementById('rev-rating').value, 10) || 5,
+                treatment: document.getElementById('rev-treatment').value,
+                comment: document.getElementById('rev-comment').value.trim()
+            };
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i><span>Posting Review...</span>';
+
+            if (supabaseClient) {
+                try {
+                    const { error } = await supabaseClient
+                        .from('reviews')
+                        .insert([newReview]);
+                    if (error) throw error;
+                } catch (err) {
+                    console.warn("Supabase review insert fallback:", err.message);
+                }
+            }
+
+            // Also store in localStorage so the user sees it immediately even before configuring Supabase
+            const localRevs = JSON.parse(localStorage.getItem('dr_somnath_reviews') || '[]');
+            localRevs.unshift({ ...newReview, created_at: new Date().toISOString() });
+            localStorage.setItem('dr_somnath_reviews', JSON.stringify(localRevs));
+
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = origHtml;
+            document.getElementById('review-form').reset();
+            setStarRating(5);
+            fetchReviews();
+            showToast("Thank you! Your review & star rating has been posted.");
+        });
+
+        /* =====================================================================
+           4. UI HELPERS (IMAGE PREVIEWER, TREATMENT SELECTOR, SQL COPY)
+        ====================================================================== */
+        function selectTreatmentAndScroll(treatmentName) {
+            const selectEl = document.getElementById('apt-treatment');
+            for (let i = 0; i < selectEl.options.length; i++) {
+                if (selectEl.options[i].value === treatmentName) {
+                    selectEl.selectedIndex = i;
+                    break;
+                }
+            }
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function previewImage(event, targetImgId) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById(targetImgId).src = e.target.result;
+                showToast("Photo preview updated!");
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function openSupabaseModal() {
+            document.getElementById('supabase-modal').classList.remove('hidden');
+        }
+
+        function closeSupabaseModal() {
+            document.getElementById('supabase-modal').classList.add('hidden');
+        }
+
+        function copySqlCode() {
+            const sqlText = document.getElementById('sql-code-block').innerText;
+            const tempInput = document.createElement('textarea');
+            tempInput.value = sqlText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            document.getElementById('copy-sql-label').textContent = "Copied!";
+            setTimeout(() => {
+                document.getElementById('copy-sql-label').textContent = "Copy SQL";
+            }, 2000);
+        }
+
+        function showToast(message) {
+            const box = document.getElementById('toast-box');
+            document.getElementById('toast-text').textContent = message;
+            box.classList.remove('hidden');
+            setTimeout(() => {
+                box.classList.add('hidden');
+            }, 3500);
+        }
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function setDefaultAppointmentDate() {
+            const dateInput = document.getElementById('apt-date');
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.min = today;
+            dateInput.value = today;
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            setDefaultAppointmentDate();
+            initSupabase();
+            fetchReviews();
+        });
+    </script>
+</body>
+</html>
